@@ -1,79 +1,72 @@
 import React, { useState } from "react";
+import WeatherInfo from "./WeatherInfo";
+
 import axios from "axios";
+import "./Weather.css";
 
-export default function WeatherSearch() {
-  const [city, setCity] = useState("");
-  const [loaded, setLoaded] = useState(false);
-  const [weather, setWeather] = useState(null);
+export default function WeatherSearch(props) {
+  const [weatherData, setWeatherData] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    searchCity();
-  }
-  function updateCity(event) {
-    setCity(event.target.value);
-  }
-  function showTemperature(response) {
-    setLoaded(true);
-    setWeather({
+  function handleResponse(response) {
+    setWeatherData({
+      ready: true,
+      coordinates: response.data.coord,
       temperature: response.data.main.temp,
-      description: response.data.condition.description,
-      humidity: response.data.temperature.humidity,
+      humidity: response.data.main.humidity,
+      date: new Date(response.data.dt * 1000),
+      description: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
       wind: response.data.wind.speed,
-      icon: `http://openweathermap.org/img/wn/${response.data.condition.icon_ur}@2x.png`,
+      city: response.data.name,
     });
   }
 
-  function searchCity() {
-    let apiKey = "b2a5adcct04b33178913oc335f405433";
-    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(showTemperature);
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
   }
 
-  let form = (
-    <div class="weather-app">
-      <header>
-        <form className="search-form" onSubmit={handleSubmit}>
-          <input
-            className="search-form-input"
-            type="search"
-            placeholder="Enter a City..."
-            onChange={updateCity}
-          />
-          <input
-            className="search-form-button"
-            type="submit"
-            name="Search"
-            value={"search"}
-          />
-        </form>
-      </header>
-    </div>
-  );
-  if (loaded) {
+  function handleCityChange(event) {
+    setCity(event.target.value);
+  }
+
+  function search() {
+    const apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+
+  if (weatherData.ready) {
     return (
-      <div className="weather-app-data">
-        {" "}
-        <strong>{city}</strong>
-        <div classname="weather-app-details">
-          <p>
-            Thursday, 10:47, condition: {weather.description}, humidity:{" "}
-            <strong> {weather.humidity}%</strong>
-            wind: <strong>{Math.round(weather.wind)} km/h</strong>
-          </p>
-        </div>
-        <div className="weather-app-temperature-container">
-          <span className="weather-app-icon">
-            <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" />
-          </span>
-          <span class="weather-app-temperature">
-            <strong>{Math.round(weather.temperature)}</strong>
-          </span>
-          <span class="weather-app-unit">°C</span>
-        </div>
+      <div className="weather-app">
+        <header>
+          <form className="search-form-input" onSubmit={handleSubmit}>
+            <div className="row">
+              <div className="col-9">
+                <input
+                  type="search"
+                  placeholder="Enter a city.."
+                  className="form-control"
+                  autoFocus="on"
+                  onChange={handleCityChange}
+                />
+              </div>
+              <div className="col-3">
+                <input
+                  type="submit"
+                  value="Search"
+                  className="search-form-button"
+                />
+              </div>
+            </div>
+          </form>
+        </header>
+        <WeatherInfo data={weatherData} />
       </div>
     );
   } else {
-    return form;
+    search();
+    return "Loading...";
   }
 }

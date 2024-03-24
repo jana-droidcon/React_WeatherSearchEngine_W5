@@ -14,7 +14,7 @@ export default function Footer() {
           {" "}
           Jana Hille
         </a>
-        , is on
+        , published on
         <a
           href="https://github.com/jana-droidcon/React-week-4"
           target="_blank"
