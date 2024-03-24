@@ -16,7 +16,7 @@ export default function Footer() {
         </a>
         , published on
         <a
-          href="https://github.com/jana-droidcon/React-week-4"
+          href="https://github.com/jana-droidcon/React_WeatherSearchEngine_W5"
           target="_blank"
           rel="noreferrer"
         >
@@ -25,7 +25,7 @@ export default function Footer() {
         </a>
         , hosted on
         <a
-          href="https://weathersearchengine-janahille.netlify.app/"
+          href="https://react-weathersearchengine-w5.netlify.app/"
           target="_blank"
           rel="noreferrer"
         >

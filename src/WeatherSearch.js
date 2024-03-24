@@ -42,12 +42,12 @@ export default function WeatherSearch(props) {
       <div className="weather-app">
         <header>
           <form className="search-form-input" onSubmit={handleSubmit}>
-            <div className="row">
+            <div className="row width">
               <div className="col-9">
                 <input
                   type="search"
                   placeholder="Enter a city.."
-                  className="form-control"
+                  class="form-control"
                   autoFocus="on"
                   onChange={handleCityChange}
                 />
