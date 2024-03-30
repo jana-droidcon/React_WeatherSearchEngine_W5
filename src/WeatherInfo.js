@@ -12,8 +12,10 @@ export default function WeatherInfo(props) {
         <FormattedDate date={props.data.date} />, {props.data.description}
       </li>
       <li className="weather-app-details d-flex">
-        Humidity: <strong> {props.data.humidity}% </strong>, Wind:{" "}
-        <strong> {props.data.wind} km/h </strong>
+        <li>
+          Humidity: <strong>{props.data.humidity}%</strong>, Wind:{" "}
+          <strong>{props.data.wind} km/h</strong>
+        </li>
       </li>
 
       <div className="weather-app-temperature-container">

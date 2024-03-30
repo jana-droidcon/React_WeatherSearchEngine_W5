@@ -5,31 +5,22 @@ export default function Footer() {
   return (
     <div className="Footer">
       <p>
-        This project was coded by
-        <a
-          href="https://github.com/jana-droidcon"
-          target="_blank"
-          rel="noreferrer"
-        >
-          {" "}
+        This project was coded by{" "}
+        <a href="https://github.com/jana-droidcon" target="_blank">
           Jana Hille
         </a>
-        , published on
+        , open-sourced on{" "}
         <a
           href="https://github.com/jana-droidcon/React_WeatherSearchEngine_W5"
           target="_blank"
-          rel="noreferrer"
         >
-          {" "}
           Github
         </a>
-        , hosted on
+        , hosted on{" "}
         <a
           href="https://react-weathersearchengine-w5.netlify.app/"
           target="_blank"
-          rel="noreferrer"
         >
-          {" "}
           Netlify
         </a>
         .
