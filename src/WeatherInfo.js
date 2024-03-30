@@ -23,7 +23,7 @@ export default function WeatherInfo(props) {
           <WeatherIcon code={props.data.icon} />
         </span>
         <span class="weather-app-temperature">
-          <WeatherTemperature celsius={props.data.temperature} />
+          <WeatherTemperature celsius={Math.round(props.data.temperature)} />
         </span>
       </div>
     </div>
